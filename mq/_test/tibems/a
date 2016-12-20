@@ -1,0 +1,1 @@
+gcc -o test test.c -I/home/hdp/inc -L/home/hdp/lib/tibems -ltibems64 -ltibemslookup64 -ltibemsadmin64 -lssl -lcrypto -lldap -llber -lxml2 -lz -ldl -lpthread

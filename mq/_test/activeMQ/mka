@@ -1,0 +1,1 @@
+g++ -fPIC -shared -o libamq_cpp.so mqhandle.cc -I/home/hdp/inc -I/home/hdp/usr/apr-1.5.2/include -L/home/hdp/lib -lactivemq-cpp

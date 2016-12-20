@@ -1,0 +1,1 @@
+gcc -fPIC -shared -o libamqtool.so acmqtool.cc -I/home/hdp/usr/activemq-cpp-library-3.9.2/src/main -I/home/hdp/usr/apr-1.5.2/include -L. -lamq_cpp -L/home/hdp/lib -lactivemq-cpp
