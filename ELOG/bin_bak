@@ -1,0 +1,1 @@
+gcc main.c elog.c memory.c strings.c libttsys.a -m32
