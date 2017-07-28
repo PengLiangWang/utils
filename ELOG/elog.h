@@ -81,9 +81,9 @@ __END_DECLS
  * @{
  */
 //#define PREFIXLOG(level)  LOG_LEVEL_##level,__FUNCTION__,__FILE__,__LINE__
-#define PREFIXLOG(level)  LOG_LEVEL_##level,__FILE__,__LINE__
+#define PREFIXLOG(level)  LOG_LEVEL_##level,__FILE__,__LINE__     //传入file 和 line
 
-#define ELOG(level, ...)  elog(PREFIXLOG(level), __VA_ARGS__)
+#define ELOG(level, ...)  elog(PREFIXLOG(level), __VA_ARGS__)    //可变参数宏
 
 #define ELOG_DEBUG()    elogisdebug()
 

@@ -93,7 +93,7 @@ static void elogregister()
    {
       return ;
    }
-   atexit(elogexit);
+   atexit(elogexit);     //运行结束时,才调用atexit函数
    elogtag = 1;
    return ;
 }
@@ -157,7 +157,7 @@ void eloginit(int pri,char *module,char *path,char *file,int lmask,char *host)
 
    if ( module )
    {
-      edata.module = strdup(module);
+      edata.module = strdup(module); //strdup可以直接把要复制的内容复制给没有初始化的指针，因为它会自动分配空间给目的指针
    }
 
    if ( path && *path != 0 && strcmp(path, "NULL") )
@@ -187,7 +187,7 @@ void elog(int pri, const char *file,const int line,char *fmt,...)
       pri = LOG_LEVEL_ERROR;
    }
 
-   if ( pri > edata.level )
+   if ( pri > edata.level )    //打印日志等级判断 (例如 eloginit的时候放edata.level=INFO(0x02), 调用ELOG时用DEBUG(0x03)时, 满足条件，不打印日志)
    {
       return ;
    }
@@ -197,9 +197,9 @@ void elog(int pri, const char *file,const int line,char *fmt,...)
    eloggettime();
 
    {
-        va_list args;
+        va_list args;        //可变参数类型
         va_start(args, fmt);
-        //velog(pri, function, file, line, fmt, args);
+        printf("file:%s, line:%d, fmt:%s\n", file, line, fmt);   //在宏定义中传入了file 和 line 
         velog(pri, file, line, fmt, args);
         va_end(args);
    }
@@ -238,13 +238,14 @@ static void velog(int pri, const char *file, const int line, char *fmt, va_list 
 
    memset(fileline,0,sizeof(fileline));
 
-   llen = sizeof(fileline);
+   llen = sizeof(fileline);     //文件的行
    xlen = 0;
    p = fileline;
 
    xlen = snprintf(p, llen, "[%04d-%02d-%02d %02d:%02d:%02d] %s ", edata.lt->tm_year+1900,
                    edata.lt->tm_mon+1, edata.lt->tm_mday, edata.lt->tm_hour, edata.lt->tm_min, 
                    edata.lt->tm_sec, elevel[pri]);
+   printf("xlen:%d, llen:%d\n", xlen, llen);
    DEC(p,xlen,llen);
 
    /*
@@ -274,6 +275,7 @@ static void velog(int pri, const char *file, const int line, char *fmt, va_list 
          return ;
       }
       
+      printf("日志文件fileline:%s\n", fileline);
       fprintf(edata.flog,"%s\n",fileline);
       fflush(edata.flog);
    }
@@ -285,7 +287,7 @@ static void velog(int pri, const char *file, const int line, char *fmt, va_list 
       {
          return ;
       }
-      send(edata.dlog,fileline,xlen,0);
+      send(edata.dlog,fileline,xlen,0); //远程可以通过sokect， recv接收并打印出该日志信息
    }
 
    return ;
@@ -301,15 +303,16 @@ static void eloggettime()
    edata.lt = (struct  tm  *)localtime(&timer);
    
    ymd = (edata.lt->tm_mon + 1)*100 + edata.lt->tm_mday;
+   printf("ymd:%d\n", ymd);
    
    if ( ymd != edata.ymd )
    {
       edata.ymd = ymd;
-      if ( edata.flog != NULL )
+      if ( edata.flog != NULL )   //flog 日志文件
       {
          fflush(edata.flog);
          fclose(edata.flog);
-         edata.opend = -1;
+         edata.opend = -1;       //是否打开文件
          edata.flog = NULL;
       }
    }
