@@ -23,8 +23,8 @@ int main()
 
 
     /* AB_ROUND 函数*/
-    double money1 = 1.45446; 
-    AB_ROUND(&money1, 2);
+    double money1 = 1.45456; 
+    AB_ROUND(&money1, 2);    //4舍5入
     printf("money1: %f\n", money1);
 
     return 0;
