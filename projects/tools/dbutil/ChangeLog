@@ -1,0 +1,3 @@
+Makefile被改写加入C_FLAGS
+dbLogin.pc EXEC SQL INCLUDE SQLCA被改写为
+EXEC SQL INCLUDE sqlca; (oracle 8)

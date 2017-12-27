@@ -1,0 +1,110 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ACT_SRC_FILE	act/Makefile	/^ACT_SRC_FILE=DB_PosJnls.act $/;"	m
+APP_DEF_USER	act/Makefile	/^APP_DEF_USER=$/;"	m
+BINDIR	Makefile	/^BINDIR=$(HOME)\/bin$/;"	m
+BIN_FILE	act/Makefile	/^BIN_FILE=$/;"	m
+CC	Makefile	/^CC=cc$/;"	m
+CPS_COO_AUTX	scrcon.h	/^    CPS_COO_AUTX =   36,$/;"	e	enum:__anon1
+CPS_COO_DATX	scrcon.h	/^    CPS_COO_DATX =   14,$/;"	e	enum:__anon1
+CPS_COO_TMEX	scrcon.h	/^    CPS_COO_TMEX =   19,$/;"	e	enum:__anon1
+CPS_COO_YDTY	scrcon.h	/^    CPS_COO_YDTY =   22,$/;"	e	enum:__anon1
+CPS_COO_YMDX	scrcon.h	/^    CPS_COO_YMDX =    2,$/;"	e	enum:__anon1
+CPS_MSG_TRAC	scrcon.h	/^    CPS_MSG_TRAC = 1978,$/;"	e	enum:__anon1
+CPS_SCR_HMAX	scrcon.h	/^    CPS_SCR_HMAX =   24,$/;"	e	enum:__anon1
+CPS_SCR_LMAX	scrcon.h	/^    CPS_SCR_LMAX =   80,$/;"	e	enum:__anon1
+CPS_TRC_WINC	scrcon.h	/^    CPS_TRC_WINC =   75,$/;"	e	enum:__anon1
+CPS_TRC_WINL	scrcon.h	/^    CPS_TRC_WINL =   17,$/;"	e	enum:__anon1
+CPS_TRC_WINX	scrcon.h	/^    CPS_TRC_WINX =    3,$/;"	e	enum:__anon1
+CPS_TRC_WINY	scrcon.h	/^    CPS_TRC_WINY =    4,$/;"	e	enum:__anon1
+C_FILE	act/Makefile	/^C_FILE=DB_PosJnls.c $/;"	m
+C_FLAG	act/Makefile	/^C_FLAG=-g$/;"	m
+C_SRC_FILE	act/Makefile	/^C_SRC_FILE=$/;"	m
+DOC_SRC_FILE	act/Makefile	/^DOC_SRC_FILE= $/;"	m
+Disp_tm	monpub.h	/^typedef struct Disp_tm$/;"	s
+Disptime	monpub.h	/^} Disptime;$/;"	t	typeref:struct:Disp_tm
+ETC_FILE	act/Makefile	/^ETC_FILE=$/;"	m
+EXEC_LOCAL	act/Makefile	/^EXEC_LOCAL=$/;"	m
+INCDIR	Makefile	/^INCDIR=$(HOME)\/include$/;"	m
+INCL	Makefile	/^INCL=  -I..\/..\/include -Iact#-DPOS_DEBUG$/;"	m
+INCLUDE	Makefile	/^INCLUDE= -I$(HOME)\/include  -Iact#-DPOS_DEBUG$/;"	m
+INCLUDE_FILE	act/Makefile	/^INCLUDE_FILE=DB_PosJnls.h $/;"	m
+INCLUDE_SRC_FILE	act/Makefile	/^INCLUDE_SRC_FILE=$/;"	m
+LIBDIR	Makefile	/^LIBDIR=$(HOME)\/lib$/;"	m
+LIBS	act/Makefile	/^LIBS=-L. -L$(LIBDIR) -lcrypto -lttsys -lxml2 -ldbutil \\$/;"	m
+LIBWEB	Makefile	/^LIBWEB= -L. -L$(LIBDIR)$/;"	m
+LIB_FILE	act/Makefile	/^LIB_FILE=$/;"	m
+LOCALLIB	Makefile	/^LOCALLIB= -L. -L$(LIBDIR) -lcurses -lMd5 -lpthread -ldbutil -lttsys $(DBLIB)$/;"	m
+MON_CON_FILE	monpub.h	33;"	d
+MON_CON_HEAD	monpub.h	34;"	d
+MSGQMON	monpub.h	/^typedef struct MSGQMON$/;"	s
+MsgQueMon	monpub.h	/^} MsgQueMon;$/;"	t	typeref:struct:MSGQMON
+OBJ_FILE	act/Makefile	/^OBJ_FILE=$/;"	m
+OTHER_SRC_FILE	act/Makefile	/^OTHER_SRC_FILE=$/;"	m
+PC_SRC_FILE	act/Makefile	/^PC_SRC_FILE=$/;"	m
+PROEXE	Makefile	/^PROEXE=monwin$/;"	m
+PROOBJ	Makefile	/^PROOBJ=monwin.o  init.o  welmon.o refresh.o end.o scrcon.o act\/DB_PosJnls.o$/;"	m
+PUB_INCLUDE_SRC_FILE	act/Makefile	/^PUB_INCLUDE_SRC_FILE=$/;"	m
+RM	Makefile	/^RM = rm -f$/;"	m
+Read_config	welmon.c	/^int Read_config(const char *pcFile,const char *pcHead,char *pcName,char *pcInfo)$/;"	f
+SH_FILE	act/Makefile	/^SH_FILE= $/;"	m
+SH_FILE	act/Makefile	/^SH_FILE=$/;"	m
+SQL_FILE	act/Makefile	/^SQL_FILE=DB_PosJnls.sql $/;"	m
+SQL_SRC_FILE	act/Makefile	/^SQL_SRC_FILE=$/;"	m
+ScrCon	scrcon.h	/^} ScrCon;$/;"	t	typeref:struct:Scr_con
+Scr_con	scrcon.h	/^typedef struct Scr_con$/;"	s
+Trims	welmon.c	/^void Trims(char *pcChar,char caSou,char caObj,int iLong)$/;"	f
+_MONWIN_INCLUDE_H_	monpub.h	2;"	d
+_SCRCON_INCLUDE_H_	scrcon.h	2;"	d
+auth	scrcon.c	/^const char *auth = "AUTH: SONEYE    按CTRL+C退出";$/;"	v
+caDate	monpub.h	/^    char caDate[4+1];$/;"	m	struct:Disp_tm
+caDay	monpub.h	/^    char caDay[10+1];$/;"	m	struct:Disp_tm
+caDmac	monpub.h	/^    char caDmac[16+1];$/;"	m	struct:Disp_tm
+caEngDate	refresh.c	/^char caEngDate[][4]={"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};$/;"	v
+caTime	monpub.h	/^    char caTime[8+1];$/;"	m	struct:Disp_tm
+cps_monend	end.c	/^void cps_monend(int iSig)$/;"	f
+cps_refresh	refresh.c	/^int cps_refresh()$/;"	f
+cps_scrend	end.c	/^void cps_scrend()$/;"	f
+cps_scrfile	welmon.c	/^int cps_scrfile(char *pcCon,int iSleep)$/;"	f
+cps_scrinit	init.c	/^int cps_scrinit()$/;"	f
+cps_timedisp	refresh.c	/^int cps_timedisp(Disptime *psDisptime)$/;"	f
+cps_welmon	welmon.c	/^int cps_welmon()$/;"	f
+framewin	scrcon.h	/^    WINDOW *framewin;$/;"	m	struct:Scr_con
+headline	scrcon.h	/^    char *headline;$/;"	m	struct:Scr_con
+height_framewin	scrcon.h	/^    int height_framewin;$/;"	m	struct:Scr_con
+height_monwin	scrcon.h	/^    int height_monwin;$/;"	m	struct:Scr_con
+iMsg	monpub.h	/^static int iMsg;$/;"	v
+iTrans	monpub.h	/^static int iTrans;$/;"	v
+info	monpub.h	/^    char info[80];$/;"	m	struct:MSGQMON
+lRows	monpub.h	/^static long lRows;$/;"	v
+length_framewin	scrcon.h	/^    int length_framewin; $/;"	m	struct:Scr_con
+length_monwin	scrcon.h	/^    int length_monwin; $/;"	m	struct:Scr_con
+main	monwin.c	/^int main(int argc, char **argv)$/;"	f
+menuItem	scrcon.c	/^const char *menuItem[] = {"服务代码", "商户号", "终端编码", "本地交易日期", "本地交易时间", $/;"	v
+menuItemBeforeSpaceNum	scrcon.c	/^const int menuItemBeforeSpaceNum[] = {0, 1, 1, 1, 1,$/;"	v
+monwin	scrcon.h	/^    WINDOW *monwin; $/;"	m	struct:Scr_con
+msgtype	monpub.h	/^    long msgtype;$/;"	m	struct:MSGQMON
+scrCon	scrcon.c	/^ScrCon scrCon;$/;"	v
+scrConInit	scrcon.c	/^void scrConInit()$/;"	f
+show_sInfo_data	refresh.c	/^int show_sInfo_data(Select_Info *psInfo, int sInfo_has_data, int *piY)$/;"	f
+show_scrmain	scrcon.c	/^int show_scrmain()$/;"	f
+xauth	scrcon.h	/^    int xauth;$/;"	m	struct:Scr_con
+xdataEnd	scrcon.h	/^    int xdataEnd;$/;"	m	struct:Scr_con
+xdataStart	scrcon.h	/^    int xdataStart;$/;"	m	struct:Scr_con
+xheadline	scrcon.h	/^    int xheadline;$/;"	m	struct:Scr_con
+xmax	scrcon.h	/^    int xmax;$/;"	m	struct:Scr_con
+xmenu	scrcon.h	/^    int xmenu;$/;"	m	struct:Scr_con
+xstart_framewin	scrcon.h	/^    int xstart_framewin;$/;"	m	struct:Scr_con
+xstart_monwin	scrcon.h	/^    int xstart_monwin;$/;"	m	struct:Scr_con
+yauth	scrcon.h	/^    int yauth;$/;"	m	struct:Scr_con
+ydataEnd	scrcon.h	/^    int ydataEnd;$/;"	m	struct:Scr_con
+ydataStart	scrcon.h	/^    int ydataStart;$/;"	m	struct:Scr_con
+yheadline	scrcon.h	/^    int yheadline;$/;"	m	struct:Scr_con
+ymax	scrcon.h	/^    int ymax;$/;"	m	struct:Scr_con
+ymenu	scrcon.h	/^    int ymenu;$/;"	m	struct:Scr_con
+ystart_framewin	scrcon.h	/^    int ystart_framewin;$/;"	m	struct:Scr_con
+ystart_monwin	scrcon.h	/^    int ystart_monwin;$/;"	m	struct:Scr_con

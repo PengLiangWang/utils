@@ -1,0 +1,35 @@
+/**
+ * @mainpage
+ * 欢迎您使用《系统基础组件API(version 1.00)文档》。如果您发现一些组件不能使用或者调用出错，请联系tomszhou\@gmail.com。
+
+<ul>
+<li>系统基础组件及API接口列表
+<ul>
+	<li> \ref TTSYS_DEF
+	<li> \ref TTSYS_MEMORY
+	<li> \ref TTSYS_STRING
+	<li> \ref TTSYS_LIST
+	<li> \ref TTSYS_HLIST
+	<li> \ref TTSYS_DSO
+	<li> \ref TTSYS_FILE
+	<li> \ref TTSYS_CONFIG
+	<li> \ref TTSYS_ELOG
+	<li> \ref TTSYS_MSGQUEUE
+	<li> \ref TTSYS_MUTEX
+	<li> \ref TTSYS_SHMEM
+	<li> \ref TTSYS_SHMEMPOOL
+	<li> \ref TTSYS_SOCKETS
+	<li> \ref TTSYS_EXML
+	<li> \ref TTSYS_XLATE
+	<li> \ref TTSYS_DATETIME
+	<li> \ref TTSYS_HASHEX
+	<li> \ref TTSYS_TRIEX
+	<li> \ref TTSYS_DATAPOOL
+	<li> \ref TTSYS_BITMAP
+	<li> \ref TTSYS_DLIST
+</ul>
+</ul>
+
+ */
+
+

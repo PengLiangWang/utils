@@ -1,0 +1,150 @@
+#
+# IB SYSTEM
+# Usage: IBdaemon [start|stop|stat|restart]
+#
+
+PROCESS="IBnote IBserver IBsec"
+PROCESS_STOP="IBserver IBnote IBsec"
+OS="Unixware"
+if_list=""
+PS="ps -f -u $LOGNAME " 
+STOPACTION="grep -v \"grep\"|grep \$i|awk '{print \"kill \",\$2, \";echo\",\"####\",\$2,\$10 ,\"........stoped.\"}'|sh"
+print_usage()
+{
+  $ECHO
+  $ECHO "Usage: IBdaemon [start|stop|stat|restart]"
+  $ECHO
+}
+
+print_stat()
+{
+  $ECHO
+  $ECHO "    IB-Application status:"
+  $ECHO
+  for i in $PROCESS
+  do
+    $PS  |grep -v "grep"|grep $i
+  done
+  $ECHO
+  $ECHO
+}
+
+IB_start()
+{
+  $ECHO
+  $ECHO "    Starting IBsec.............. \c"
+  IBsec
+  tmp=$?
+  if [ $tmp -ne 0 ]
+  then
+    $ECHO "    Starting IBsec........ failed!"
+    exit 1;
+  fi
+  $ECHO  "Ok"
+
+  $ECHO
+  $ECHO "    Starting IBnote............. \c"
+  IBnote 
+  tmp=$?
+  if [ $tmp -ne 0 ]
+  then
+    $ECHO "    Starting IBnote....... failed!"
+    exit 1;
+  fi
+  $ECHO  "Ok"
+
+  $ECHO
+    sleep 1
+
+    $ECHO  "    Starting IBserver........... \c"
+    IBserver
+    if [ $? -ne 0 ]
+    then
+        $ECHO failed!
+        exit 1
+    fi
+    $ECHO  "Ok"
+  $ECHO
+    $ECHO  "    IBS-Application System is ready!"
+}
+IB_stop()
+{
+  $ECHO
+  for i in $PROCESS_STOP
+  do
+    eval "$PS | $STOPACTION "
+  done
+  $ECHO "IBS-Application System is shutdown!"
+}
+
+if [ "A$OS" = "A" ]
+then
+ $ECHO "can't guess os";exit;
+fi
+case  $OS in
+ "SCO 3")
+    ECHO="echo"
+    PS="ps -f -u $LOGNAME "    
+    STOPACTION="grep -v \"grep\"|grep \$i|awk '{print \"kill \",\$2, \";echo\", \$2,\$8 ,\"........stoped!\"}'|sh"
+ ;;
+ "SCO 5") 
+    ECHO="echo"
+    PS="ps -f -u $LOGNAME "        
+    STOPACTION="grep -v \"grep\"|grep \$i|awk '{print \"kill \",\$2, \";echo\", \$2,\$8 ,\"........stoped!\"}'|sh"
+ ;;
+ "IBM AIX")
+    ECHO="echo"
+    PS="ps -f -u $LOGNAME "    
+    STOPACTION="grep -v \"grep\"|grep \$i|awk '{print \"kill \",\$2, \";echo\", \$2,\$8 ,\"........stoped!\"}'|sh"
+ ;;
+ "Linux")  
+    ECHO="echo -e"
+    PS="ps x "    
+    STOPACTION="grep -v \"grep\"|grep \$i|awk '{print \"kill \",\$1, \";echo\", \$1,\$5 ,\"........stoped!\"}'|sh"
+;;
+ "Unixware")  
+    ECHO="echo"
+    PS="ps -f -u $LOGNAME "    
+    STOPACTION="grep -v \"grep\"|grep \$i|awk '{print \"kill \",\$2, \";echo\", \$2,\$10 ,\"........stoped!\"}'|sh"
+
+;;
+ "SVR4")  
+#dynix
+    ECHO="echo"
+    PS="ps -f -u $LOGNAME "    
+    STOPACTION="grep -v \"grep\"|grep \$i|awk '{print \"kill \",\$2, \";echo\", \$2,\$8 ,\"........stoped!\"}'|sh"
+    
+ ;;
+ *)
+    echo "$OS havn't rule!\n"
+    exit 1
+esac
+
+
+if [ $# -eq 2 -a "A$2" != "Alisp"  -o $# -lt 1 -o $# -gt 2 ]
+then
+    print_usage
+    exit 1
+fi
+
+if_lisp=$2
+case $1 in
+    start)
+        IB_start
+        print_stat
+        ;;
+    stop)
+        IB_stop
+        ;;
+    stat)
+        print_stat
+        ;;
+    restart)
+        IB_stop
+        IB_start
+        print_stat
+        ;;
+    *)
+        print_usage
+        ;;
+esac

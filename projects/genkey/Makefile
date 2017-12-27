@@ -1,0 +1,28 @@
+C_SRC_FILE=
+C_FILE=
+PUB_INCLUDE_FILE=
+INCLUDE_FILE=
+EC_FILE=
+SQL_FILE=
+ACT_SRC_FILE=
+LIB_FILE=
+PUB_INCLUDE_SRC_FILE=
+CLEAN_FILE_SRC=
+USR_CLEAN_FILE=
+BIN_FILE=GenKey
+MOD_FILE=
+EXEC_LOCAL=
+ETC_FILE=
+DOC_FILE=
+SH_FILE=
+C_FLAG=-rdynamic
+
+include $(PREFIX)/make/makeobj.inc
+
+
+LIBS= -L. -L$(LIBDIR) -lhsmd -lttsys -lxml2 -lcrypto -ldl $(SOCKETLIB)
+LIBS1=-L. -L$(LIBDIR) -lHsmAPI2
+
+
+GenKey:genkey.o
+	$(CC) $(C_FLAG) -g -o GenKey genkey.o $(LIBS1) $(LIBS)

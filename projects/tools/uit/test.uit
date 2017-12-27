@@ -1,0 +1,219 @@
+#UIT测试文件
+MENU SubMenu_1   # 测试子菜单
+
+	BORDER		YES
+	TITLEWIN	NO
+	MSGWIN		YES
+
+	TITLE	"子菜单"
+	AT	10 20
+	SIZE	10 30
+	
+	ITEM 
+		TITLE	"菜单1"
+		REM	"菜单项 1"
+		AT	1 2
+		ID	100
+	END
+
+	ITEM 
+		TITLE	"Sub Item 2"
+		REM	"菜单项 1"
+		AT	3 2
+		ID	101
+	END
+END
+
+MENU Query_Menu   # 测试查询菜单
+
+	BORDER		YES
+	TITLEWIN	YES
+	MSGWIN		YES
+
+	TITLE	"查询菜单"
+	AT	8  12
+	SIZE	12 40
+	
+	ITEM 
+		TITLE	"Sub Item 1"
+		REM	"菜单项 1"
+		AT	1 2
+		ID	100
+	END
+
+	ITEM 
+		TITLE	"Sub Item 2"
+		REM	"菜单项 1"
+		AT	3 2
+		ID	101
+	END
+END
+
+#测试菜单
+MENU Test_Menu
+	BORDER		YES
+	TITLEWIN	YES
+	MSGWIN		YES
+
+	TITLE	"Test Menu"
+	AT	4 10
+	SIZE	15 40
+	
+	ITEM 
+		TITLE	"Item 1"
+		REM	"菜单项 1"
+		AT	1 2
+		ID	1
+		KEY	"1"
+	END
+
+
+	SUBMENU SubMenu_1
+		TITLE	"Sub Menu"
+		REM	"下级菜单"
+		AT	3 2
+		KEY	"2"
+	END
+
+	ITEM 
+		TITLE	"Item 3"
+		REM	"菜单项 3"
+		AT	5 2
+		ID	1
+		KEY	"3"
+	END
+
+	HOTKEY
+		KEY	"A"
+		ID	200
+	END
+	HOTKEY
+		KEY	"?"
+		ID	201
+		SUBMENU	Query_Menu
+	END
+		
+
+
+TEXT	^^^
+
+			测试菜单
+			UIT 自动生成
+
+^^^
+END
+
+#测试FORM
+FORM Test_Form
+	BORDER		YES
+	TITLEWIN	YES
+	MSGWIN		YES
+	INPUTWIN	YES
+
+	TITLE	"输入窗口"
+	AT	7 8 
+	SIZE	15 70
+	
+	FIELD field_1
+
+		TITLE	"输入项 1 "
+		REM	"请输入字符传"
+
+		NOTNULL
+
+		HIDDEN	NO
+		TYPE	STR
+		SIZE	16
+		AT	0 2
+		DISPLAYSIZE 16
+	END
+
+	FIELD field_2
+
+		TITLE	""
+		REM	"选择项1 "
+		AT	2 2
+
+		TYPE	SELECT
+		DISPLAYSIZE 10
+
+		OPTION	1	"选择项1"
+    OPTION	2	"选择项2"
+    OPTION	3	"选择项3"
+	END
+	FIELD hidden
+		HIDDEN	YES
+		TYPE	STR
+		AT	2 30
+		SIZE	32
+	END
+
+	FIELD field_3
+
+		TITLE	"输入项 3 "
+		REM	"请输入数字"
+
+		TYPE	DOUBLE
+		SIZE	15
+		PLUS
+		DEC	2
+		AT	4 2
+		DISPLAYSIZE 16
+	END
+	FIELD field_4
+
+		TITLE	"输入项 N "
+		REM	"请输入字符传"
+
+		FIXLEN
+
+		TYPE	NSTR
+		SIZE	20
+		AT	6 2
+		DISPLAYSIZE 20
+	END
+	FIELD date_str
+		TITLE	"输入日期 "
+		REM	"格式 YYYY-MM-DD"
+		TYPE	YMD
+		AT	0 37
+		SIZE	10
+	END
+	FIELD time_str
+		TITLE	"输入时间 "
+		REM	"格式 HH:MM:SS"
+		TYPE	HMS
+		AT	2 37
+		SIZE	8
+	END
+	FIELD long_value
+		TITLE	"输入数字 "
+		REM	"七位数字"
+		TYPE	LONG
+		NOTMINUS
+		AT	4 37
+		SIZE		7
+		DISPLAYSIZE	10
+	END
+	FIELD button
+		TITLE	"<确认>"
+		TYPE	BUTTON
+		AT	6 37
+		SUBMIT
+	END
+TEXT	^^^
+─────────────────┬───────────────
+                                  │
+─────────────────┼───────────────
+                                  │
+─────────────────┼───────────────
+                                  │
+─────────────────┼───────────────
+                                  │
+─────────────────┼───────────────
+                                  │输入表格
+─────────────────┴───────────────
+^^^
+END
+
+END	# END OF FILE 

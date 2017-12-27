@@ -1,0 +1,11 @@
+opt_rcv_data
+    number     int
+    name       str 10
+    age        int 
+    address    str 23
+end
+
+opt_snd_data
+    retcode    int
+    amount     double
+end

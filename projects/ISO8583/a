@@ -1,0 +1,2 @@
+scp -P 7016 posm manage@112.65.158.236:~/bin
+#scp -P 7016 moni.en manage@112.65.158.236:~/etc

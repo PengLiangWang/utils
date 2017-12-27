@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <string.h>
+#include "dbutil.h"
+EXEC SQL INCLUDE sqlca;
+EXEC SQL BEGIN DECLARE SECTION;
+EXEC SQL END DECLARE SECTION;
+
+DataBaseServer  dbServer;
+
+int dbOpen(char *sUid, char *sPasswd,char *dbname)
+{
+
+    EXEC SQL BEGIN DECLARE SECTION;
+         char uid[32];
+         char pwd[32];
+         char db[64];
+    EXEC SQL END DECLARE SECTION;
+
+   memset(uid,0,sizeof(uid));
+   memset(pwd,0,sizeof(pwd));
+   memset(db,0,sizeof(db));
+   strcpy(uid, sUid);
+   strcpy(pwd, sPasswd);
+
+   if((dbname != NULL) && (strlen(dbname) > 0))
+   {
+     strcpy(db,dbname);
+     EXEC SQL CONNECT :uid IDENTIFIED BY :pwd USING :db;
+   }
+   else
+   {
+     EXEC SQL CONNECT :uid IDENTIFIED BY :pwd;
+   }
+/**
+   if (sqlca.sqlcode==0)
+   {
+**/
+  memset(&dbServer,0,sizeof(DataBaseServer));
+  sqllda(&dbServer.lda);
+/**
+   };
+**/
+   return(sqlca.sqlcode);
+}
+
+int dbClose()
+{
+   //fflush(stdout);
+   EXEC SQL COMMIT RELEASE ;
+   return(sqlca.sqlcode);
+}
+
+int dbBeginWork()
+{
+   return(0);
+}
+
+int dbRollback()
+{
+  EXEC SQL ROLLBACK WORK;
+  return(sqlca.sqlcode);
+}
+
+int dbCommit()
+{
+  EXEC SQL COMMIT WORK;
+  return(sqlca.sqlcode);
+}
+
+int dbWaitLock(int waitTime)
+{
+  return(0);
+}
+
+int dbNoWaitLock()
+{
+  return(0);
+}
+
+

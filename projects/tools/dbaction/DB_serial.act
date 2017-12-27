@@ -1,0 +1,14 @@
+#serial
+sys_serial
+  id        int   notnull  #应用序号
+  serial_no long  notnull  #流水编号
+end
+action index_unique_by id end
+action read_lock_by id end
+action update_by id end
+action free_lock end
+action add end
+action del_by id end
+action print_report end
+end
+

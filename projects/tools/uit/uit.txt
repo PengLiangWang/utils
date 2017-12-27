@@ -1,0 +1,462 @@
+
+			UIT (User Interface Tools)
+1. 功能
+	UIT包用于开发字符终端应用程序界面
+
+2. 组成
+	uitCom		UIT描述文件编译程序。
+	uitCom.c	uitCom源代码。
+	UIT.h 		UIT公用数据结构，函数接口定义头文件。
+	WinUtil.h 	屏幕接口层函数定义头文件。
+	UitFormEdit.h	UIT内部屏幕编辑函数定义头文件
+	uit_read.h	文件浏览窗口函数定义头文件。
+	UitMenu.c	菜单驱动程序源文件。
+	UitForm.c	FORM驱动程序源文件。
+	UitFormEdit.c	FORM数据项输入编辑程序源文件。
+	uit_read.c	文件浏览窗口程序源文件。
+	uit_test.c	UIT测试程序源文件。
+	test.uit	UIT测试界面描述文件。
+	Makefile	文件生成方法定义
+	libUIT.a	UIT函数库。
+	uit_test	UIT测试程序执行程序。
+
+3. 系统环境
+
+	UIT环境建立在WinUtil定义的屏幕接口层之上。
+	WinUtil函数使用curses库定义的函数接口。
+
+4. 使用方法简介
+
+	编写屏幕描述文件。 例：test.uit
+
+	使用uitCom程序编译UIT屏幕描述文件
+
+		uitCom [-D] test.uit
+
+		此命令将生成 test.c test.h 文件
+		使用 -D 选项表示编译出错时删除生成文件
+
+	应用程序使用以下代码调用
+
+		#include <stdio.h>
+
+		#include "test.h"		// 由test.uit编译生成的源文件
+
+		Test_Form	tt;		// 使用test.h中定义的FORM存放
+						// 数据的结构定义定义数据
+
+		static int func(int ID)		// 菜单工作函数
+		{
+			int	r;
+
+			if (ID==100)		// 检查是否选择FORM输入项
+			{
+				OpenUitForm(&UitFormCtrl_Test_Form,&tt);
+						// 打开FORM输入窗口
+				r=GetUitForm(&UitFormCtrl_Test_Form,&tt,NULL);
+						// 执行FORM输入
+						// 返回值 0 操作员确认
+						//        27 操作员放弃输入
+				CloseUitForm(&UitFormCtrl_Test_Form);
+						// 关闭FORM输入窗口
+			};
+			return(0);
+		}
+
+		main()
+		{
+			WinInit();		// 初始化屏幕环境
+			GetUitMenu(&UitMenu_Test_Menu,func);
+						// 调用菜单
+			WinEnd();		// 关闭屏幕
+		}
+
+	编译连接应用程序
+
+		见Makefile定义
+
+5. UIT函数接口
+
+	int GetUitMenu(UitMenu *menu,int (*func)(int ID));
+	执行菜单
+		菜单项被选中时调用菜单工作函数func
+		菜单项是ITEM项时菜单工作函数返回非零值表示退出N级菜单
+		菜单项是SUBMENU项时菜单工作函数返回非零值表示子菜单不可进入
+		
+	int OpenUitForm(UitFormCtrl *form,void *data);
+	打开FORM输入窗口
+
+	int DrawUitForm(UitFormCtrl *form,void *data);
+	重新刷新FORM输入窗口
+
+	int GetUitForm(UitFormCtrl *form,void *data,
+			int (*func)(UitFormCtrl *form,void *data));
+	执行FORM输入
+		返回值
+			 0 操作员确认输入
+		        27 操作员放弃输入
+		
+	int CloseUitForm(UitFormCtrl *form);
+	关闭FORM输入窗口
+
+	int UitForm_SetItemOptionIndexByID(UitFormCtrl *form,void *data,
+				   	int itemIndex,int optionID);
+	设置FORM数据项中的选择项的索引值
+
+	int DispTextAreaFile(char *filename,int row,int column,
+					int high,int wide,
+					char *title,char  *foot,
+					char *fixline,int line_mode);
+	文件浏览窗口
+
+6. 屏幕接口层函数
+
+	int WinInit();
+	int WinEnd();
+	int WinOpen(PWIN *pw,PWIN *w,int row,int column,int high,int wide);
+	int WinClose(PWIN *w);
+	int WinToTop(PWIN *w);
+	int WinCursorOn(PWIN *w);
+	int WinCursorOff(PWIN *w);
+	int WinClear(PWIN *w);
+	int WinSetCursor(PWIN *w,int row,int column);
+	int WinScrollOk(PWIN *w);
+	int WinScrollUp(PWIN *w,int startRow);
+	int WinScrollDown(PWIN *w,int startRow);
+	int WinDrawBox(PWIN *w);
+	int WinDrawHLine(PWIN *w,int row,int column,int high);
+	int WinDrawVLine(PWIN *w,int row,int column,int wide);
+	int WinDrawString(PWIN *w,char *s,int row,int column,int attr);
+	int WinDrawStringW(PWIN *w,char *s,int row,int column,int attr,int wide);
+	int WinDrawStar(PWIN *w,int row,int column,int attr,int wide,int nStar);
+	int WinFlush(PWIN *w);
+	int WinRedraw(PWIN *w);
+	int WinGetKey(PWIN *w);
+	int WinPeekKey(PWIN *w);
+	int WinPrint(PWIN *w,int attr,char *format,...);
+	int WinPrint_va(PWIN *w,int attr,char *format,va_list ap);
+	int WinGetCursRowColumn(PWIN *w,int *row,int *column);
+	int WinBeep();
+
+7. UIT编程技巧
+
+	7.1 使用FORM回调函数监控FORM输入
+		在执行FORM输入功能时指定FORM回调函数
+		回调函数原形如下:
+			int func(UitFormCtrl *form,void *data)
+
+		使用UIT描述文件生成的INCLUDE文件中定义的宏作为数据项索引值
+		在回调函数中根据form->index值判断当前输入项
+		数据项索引值宏定义如下：
+			UFD_<FORM名>_<数据项名> 
+
+		回调函数返回零值表示数据项输入被接受，非零值表示数据项不可接受
+		如果在回调函数中修改form->index值，表示需要重新输入此项数据
+
+	7.2 根据ID值设置FORM数据项中选择项的当前索引
+		int UitForm_SetItemOptionIndexByID(
+					UitFormCtrl *form,void *data,
+				   	int itemIndex,int optionID);
+
+	7.3 修改FORM数据后刷新屏幕显示
+		int DrawUitForm(UitFormCtrl *form,void *data);
+		
+	7.4 输入FORM中最后一项数据后自动提交
+		在UIT描述文件中定义FORM最后一项数据具有SUBMIT属性。
+
+	7.5 控制子菜单的进入
+		在UIT描述文件中为SUBMENU项指定ID值
+		在菜单工作函数中根据ID值执行职能检查
+		返回零值表示子菜单可以进入
+		返回非零值表示子菜单不可进入
+
+	7.6 退出多级菜单
+		在菜单工作函数中返回-1
+
+	7.7 动态修改 FORM 数据域的属性
+		在C语言中动态执行UIT命令,特别是同一FORM执行多次动作
+		需要数据域具有不同的操作属性, 使用C语言中的位运算符
+		号 | ^ & , 修改数据域的操作属性.
+
+	 	UitFormCtrl_FORM名称.field[UFD_FORM名称_数据域名称].f_option
+		可以使用的属性位宏定义如下:
+			UFO_NOTNULL
+			UFO_NOTZERO
+			UFO_FIXLEN
+			UFO_DISPLAYONLY
+			UFO_HIDDEN
+			UFO_SUBMIT
+			UFO_PLUS
+			UFO_MINUS
+			UFO_NOTPLUS
+			UFO_NOTMINUS
+
+
+
+8. UIT描述文件语法
+
+	MENU <name>
+		BORDER		YES|NO
+		TITLEWIN	YES|NO
+		MSGWIN		YES|NO
+	
+		TITLE	<S>
+		AT	<LINE> <COLUMN>
+		SIZE	<LINE> <COLUMN>
+		
+		ITEM 
+			TITLE	<S>
+			REM	<S>
+			AT	<LINE> <COLUMN>
+			ID	<N>
+			KEY	<S>
+		END
+	
+	
+		SUBMENU <name>
+			TITLE	<S>
+			REM	<S>
+			AT	<LINE> <COLUMN>
+			KEY	<S>
+		END
+
+		# 菜单调用子菜单时，子菜单继承父菜单的热键
+		# 由热键激活的子菜单不继承父菜单的热键
+		HOTKEY
+			ID		<N>
+			KEY		<S>
+			[SUBMENU	<name>]
+		END
+	
+	TEXT	^^^
+	
+	
+	^^^
+	END
+	
+	FORM <name>
+		BORDER		YES|NO
+		TITLEWIN	YES|NO
+		MSGWIN		YES|NO
+		INPUTWIN	YES|NO
+	
+		TITLE	<S>
+		AT	<LINE> <COLUMN>
+		SIZE	<LINE> <COLUMN>
+		
+		FIELD <name>
+	
+			TITLE	<S>
+			REM	<S>
+	
+			NOTNULL		# 非空
+			NOTZERO		# 非零
+			FIXLEN		# 指定长度
+			DISPLAYONLY	# 只显示不编辑
+			SUBMIT		# return 后自动提交
+			PLUS		# 必须输入正数
+			MINUS		# 必须输入负数
+			NOTPLUS		# 
+			NOTMINUS
+	
+			HIDDEN	YES|NO
+			TYPE	INT|UINT|SHORT|USHORT|DOUBLE|STR|NSTR|PASSWD|YMD|HMS|SELECT
+			SIZE	<N>
+			DEC	<N>
+	#未实现		RANGE	<N> <N>
+	
+			OPTION	<N> <S>
+			OPTION	<N> <S>
+			..
+	
+			AT	<LINE> <COLUMN>
+			DISPLAYSIZE <N>
+	
+		END
+	
+	TEXT ^^^
+	
+	
+	^^^
+	END
+	END  # END OF FILE
+
+
+9. test.uit 文件
+
+	#UIT测试文件
+	MENU SubMenu_1   # 测试子菜单
+	
+		BORDER		YES
+		TITLEWIN	NO
+		MSGWIN		YES
+	
+		TITLE	"子菜单"
+		AT	10 20
+		SIZE	10 30
+		
+		ITEM 
+			TITLE	"Sub Item 1"
+			REM	"菜单项 1"
+			AT	1 2
+			ID	100
+		END
+	
+		ITEM 
+			TITLE	"Sub Item 2"
+			REM	"菜单项 1"
+			AT	3 2
+			ID	101
+		END
+	END
+	
+	#测试菜单
+	MENU Test_Menu
+		BORDER		YES
+		TITLEWIN	YES
+		MSGWIN		YES
+	
+		TITLE	"Test Menu"
+		AT	4 10
+		SIZE	15 40
+		
+		ITEM 
+			TITLE	"Item 1"
+			REM	"菜单项 1"
+			AT	1 2
+			ID	1
+			KEY	"1"
+		END
+	
+	
+		SUBMENU SubMenu_1
+			TITLE	"Sub Menu"
+			REM	"下级菜单"
+			AT	3 2
+			KEY	"2"
+		END
+	
+		ITEM 
+			TITLE	"Item 3"
+			REM	"菜单项 3"
+			AT	5 2
+			ID	1
+			KEY	"3"
+		END
+	
+	
+	TEXT	^^^
+	
+				测试菜单
+				UIT 自动生成
+	
+	^^^
+	END
+	
+	#测试FORM
+	FORM Test_Form
+		BORDER		YES
+		TITLEWIN	YES
+		MSGWIN		YES
+		INPUTWIN	YES
+	
+		TITLE	"输入窗口"
+		AT	7 8 
+		SIZE	15 70
+		
+		FIELD field_1
+	
+			TITLE	"输入项 1 "
+			REM	"请输入字符传"
+	
+			NOTNULL
+	
+			HIDDEN	NO
+			TYPE	PASSWD
+			SIZE	16
+			AT	0 2
+			DISPLAYSIZE 16
+		END
+	
+		FIELD field_2
+	
+			TITLE	"选择项   "
+			REM	"选择项1 选择项2 选择项3"
+			AT	2 2
+	
+			TYPE	SELECT
+			DISPLAYSIZE 10
+	
+			OPTION	1	"选择项1"
+			OPTION	2	"选择项2"
+			OPTION	3	"选择项3"
+		END
+		FIELD hidden
+			HIDDEN	YES
+			TYPE	STR
+			AT	2 30
+			SIZE	32
+		END
+	
+		FIELD field_3
+	
+			TITLE	"输入项 3 "
+			REM	"请输入数字"
+	
+			TYPE	DOUBLE
+			SIZE	15
+			DEC	2
+			AT	4 2
+			DISPLAYSIZE 16
+		END
+		FIELD field_4
+	
+			TITLE	"输入项 N "
+			REM	"请输入字符传"
+	
+	
+			TYPE	NSTR
+			SIZE	20
+			AT	6 2
+			DISPLAYSIZE 20
+		END
+		FIELD date_str
+			TITLE	"输入日期 "
+			REM	"格式 YYYY-MM-DD"
+			TYPE	YMD
+			AT	0 37
+			SIZE	10
+		END
+		FIELD time_str
+			TITLE	"输入时间 "
+			REM	"格式 HH:MM:SS"
+			TYPE	HMS
+			AT	2 37
+			SIZE	8
+		END
+		FIELD long_value
+			TITLE	"输入数字 "
+			REM	"七位数字"
+			TYPE	LONG
+			NOTZERO
+			AT	4 37
+			SIZE		7
+			DISPLAYSIZE	10
+			SUBMIT
+		END
+	TEXT	^^^
+	─────────────────┬───────────────
+	                                  │
+	─────────────────┼───────────────
+	                                  │
+	─────────────────┼───────────────
+	                                  │
+	─────────────────┼───────────────
+	                                  │
+	─────────────────┼───────────────
+	                                  │输入表格
+	─────────────────┴───────────────
+	^^^
+	END
+	
+	END	# END OF FILE 

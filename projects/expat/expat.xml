@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-definition name="BPM_CancelTrade" display-name="BPM_CancelTrade">
+  <description>ywfx</description>
+
+  <!-- SWIMLANES -->
+  <swimlane name="ywfx">
+    <description>ywfxlc</description>
+  </swimlane>
+
+  <!-- TYPES -->
+  <type java-type="java.lang.Double">
+    <description>jqd</description>
+    <delegation class="com.linkage.ebpm4j.delegation.Serializer.DoubleSerializer"/>
+  </type>
+  <type java-type="java.util.Date">
+    <description>date</description>
+    <delegation class="com.linkage.ebpm4j.delegation.Serializer.DateSerializer"/>
+  </type>
+
+  <!-- START-STATE -->
+  <start-state name="start">
+    <transition name="goto_7" to="TCS_CancelTrade">
+      <extended-attributes/>
+    </transition>
+    <extended-attributes>
+      <attribute name="swimlane"><![CDATA[ywfx]]></attribute>
+      <attribute name="constraint"><![CDATA[79,4,41,41]]></attribute>
+    </extended-attributes>
+  </start-state>
+
+  <!-- NODES -->
+  <state stable="true" name="TCS_CancelTrade">
+    <description>ywfx</description>
+    <action>
+      <delegation class="com.linkage.ebpm4j.delegation.action.impl.WebTuxedoFactory"><![CDATA[<service>
+    <svr_logicname>TCS_CancelTrade</svr_logicname>
+    <srv_type>Sync</srv_type>
+    <inputparam name="buffer"/>
+    <outputparam name="buffer"/>
+</service>]]></delegation>
+    </action>
+    <transition name="goto_6" to="tzjs">
+      <extended-attributes/>
+    </transition>
+    <extended-attributes>
+      <attribute name="swimlane"><![CDATA[ywfx]]></attribute>
+      <attribute name="constraint"><![CDATA[34,148,131,40]]></attribute>
+    </extended-attributes>
+  </state>
+
+  <!-- END-STATE -->
+  <end-state name="tzjs">
+    <extended-attributes>
+      <attribute name="swimlane"><![CDATA[ywfx]]></attribute>
+      <attribute name="constraint"><![CDATA[74,273,51,51]]></attribute>
+    </extended-attributes>
+  </end-state>
+
+  <extended-attributes>
+    <attribute name="constraint"><![CDATA[0,0,722,592]]></attribute>
+    <attribute name="lastModifyTime"><![CDATA[2005-04-08 16:39:03.319]]></attribute>
+  </extended-attributes>
+</process-definition>
+

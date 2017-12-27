@@ -1,0 +1,20 @@
+PUB_INCLUDE_FILE=
+INCLUDE_FILE=
+PUB_INCLUDE_SRC_FILE=WinUtil.h cursUtil.h win.h
+INCLUDE_SRC_FILE=
+C_SRC_FILE=
+DB_SRC_FILE=
+OTHER_SRC_FILE=
+ETC_SRC_FILE=
+ETC_FILE=
+LIB_FILE=libwutil.a
+C_FLAG=-g
+APP_DEF_USER=WINUTIL
+DEVELOP=yes
+
+include $(PREFIX)/make/makeobj.inc
+
+LIB_WIN_OBJS=WinUtil.o cursUtil.o
+
+libwutil.a: $(LIB_WIN_OBJS)
+	ar rv $@ $(LIB_WIN_OBJS)

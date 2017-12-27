@@ -1,0 +1,18 @@
+# ¿©’π√‹¬Î±æ
+HsmKeyBoxEx
+  keyIndex    int       notnull 
+  keyType     str  1    notnull
+  keyFlag     str  1    notnull
+  keyLen      int       notnull
+  keyDataA    str  256       
+  keyDataB    str  256        
+  keyDac      str  32   notnull 
+end
+action index_unique_by keyIndex end
+action read_by keyIndex end
+action update_by keyIndex end
+action add end
+action open_select end
+action fetch_select end
+action close_select end
+end

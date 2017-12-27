@@ -1,0 +1,18 @@
+# 扩展密码本
+HsmKeyBoxEx
+  keyIndex    int       notnull  # 密钥序号
+  keyType     str  1    notnull  # 密钥类型 ( 1: DES  2: 3DES  3: RSA )
+  keyFlag     str  1    notnull  # (1: 不可更新密钥  2: 可更新密钥) 
+  keyLen      int       notnull  # 密钥长度
+  keyDataA    str  256           #
+  keyDataB    str  256           # 
+  keyDac      str  32   notnull  # 数据
+end
+action index_unique_by keyIndex end
+action read_by keyIndex end
+action update_by keyIndex end
+action add end
+action open_select end
+action fetch_select end
+action close_select end
+end
